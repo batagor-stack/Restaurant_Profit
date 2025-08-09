@@ -1,0 +1,37 @@
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDE configurations
+.vscode/
+.idea/
+
+# Python bytecode files
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Logs
+*.log
+
+# Database files
+*.db
+*.sqlite3
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Deployment files
+.render/
+.build/
+
+# Sensitive files
+.env
+
+# Temporary files
+temp/
+pytest_cache/
+.coverage

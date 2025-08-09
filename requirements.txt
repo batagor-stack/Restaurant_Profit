@@ -1,0 +1,9 @@
+Flask==3.0.3
+pandas==2.2.2
+numpy==1.26.4
+scikit-learn==1.4.2
+joblib==1.4.2
+gunicorn==22.0.0
+tensorflow==2.16.1
+scikeras==0.13.0
+protobuf==3.20.3

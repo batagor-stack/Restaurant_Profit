@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Profitabilitas Menu Restoran</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='1.5' stroke='%236b7280' class='w-6 h-6'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9' /%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            background-size: 1.25rem;
+            padding-right: 2.5rem;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 flex items-center justify-center min-h-screen p-4">
+
+    <div
+        class="w-full max-w-2xl bg-white dark:bg-slate-800 rounded-2xl shadow-2xl shadow-slate-200 dark:shadow-slate-950 p-8 space-y-8">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-slate-900 dark:text-white">Analisis & Prediksi Profitabilitas 📈</h1>
+            <p class="text-slate-500 dark:text-slate-400 mt-2">Isi detail menu untuk mendapatkan prediksi dan
+                rekomendasi strategis.</p>
+        </div>
+
+        <form action="/" method="post" class="space-y-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="relative">
+                    <label for="restaurant_id"
+                        class="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">Restoran</label>
+                    <select name="restaurant_id" id="restaurant_id" required
+                        class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300">
+                        <option value="" disabled selected>-- Pilih Restoran --</option>
+                        <option value="R001">Restoran 001</option>
+                        <option value="R002">Restoran 002</option>
+                        <option value="R003">Restoran 003</option>
+                    </select>
+                </div>
+                <div class="relative">
+                    <label for="menu_category"
+                        class="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">Kategori</label>
+                    <select name="menu_category" id="menu_category" required
+                        class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300">
+                        <option value="" disabled selected>-- Pilih Restoran Dulu --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="relative">
+                <label for="menu_item" class="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">Nama
+                    Item</label>
+                <select name="menu_item" id="menu_item" required
+                    class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300">
+                    <option value="" disabled selected>-- Pilih Kategori Dulu --</option>
+                </select>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="relative">
+                    <label for="ingredients"
+                        class="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">Bahan-bahan</label>
+                    <input type="text" name="ingredients" id="ingredients" required
+                        placeholder="Pilih item untuk auto-fill"
+                        class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300">
+                </div>
+                <div class="relative">
+                    <label for="price" class="block text-sm font-medium text-slate-600 dark:text-slate-300 mb-2">Harga
+                        ($)</label>
+                    <input type="number" name="price" id="price" step="0.01" min="0.01" required
+                        placeholder="Contoh: 15.50" title="Harga harus lebih besar dari 0"
+                        class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-300">
+                </div>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-gradient-to-r from-indigo-600 to-blue-500 hover:from-indigo-700 hover:to-blue-600 text-white font-bold py-3 px-4 rounded-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300">
+                Analisis & Prediksi
+            </button>
+        </form>
+
+        {% if prediction_text %}
+        <div id="result-container" class="mt-8 space-y-6">
+            <div
+                class="text-center p-6 bg-slate-100 dark:bg-slate-700/50 rounded-lg border border-slate-200 dark:border-slate-700">
+                <p class="text-2xl font-bold {{ prediction_color }}">{{ prediction_text }}</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
+                    <h3 class="font-bold text-blue-800 dark:text-blue-300 mb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        Analisis
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-300">{{ analysis_text }}</p>
+                </div>
+                <div
+                    class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                    <h3 class="font-bold text-green-800 dark:text-green-300 mb-2 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                            fill="currentColor">
+                            <path
+                                d="M11.94 1.515a1 1 0 01.566 1.859l-1.5 2.6A1 1 0 019.5 6.5v2a1 1 0 001 1h2a1 1 0 01.894 1.447l-2 4A1 1 0 019.5 16.5v2a1 1 0 01-2 0v-2a1 1 0 00-1-1h-2a1 1 0 01-.894-1.447l2-4A1 1 0 019.5 7.5v-2a1 1 0 012 0v2a1 1 0 00-1 1h-2a1 1 0 01-1-1V6.5a1 1 0 01.996-1.124l1.5-2.6a1 1 0 011.444-.26z" />
+                        </svg>
+                        Rekomendasi Strategis
+                    </h3>
+                    <p class="text-slate-600 dark:text-slate-300">{{ recommendation_text }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        const restaurantMenuMapping = {{ restaurant_menu_mapping | tojson }};
+        const menuIngredientsMapping = {{ menu_ingredients_mapping | tojson }};
+        const restaurantSelect = document.getElementById('restaurant_id');
+        const categorySelect = document.getElementById('menu_category');
+        const menuItemSelect = document.getElementById('menu_item');
+        const ingredientsInput = document.getElementById('ingredients');
+        function updateCategories() {
+            const selectedRestaurant = restaurantSelect.value;
+            categorySelect.innerHTML = '';
+            menuItemSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kategori Dulu --</option>';
+            ingredientsInput.value = '';
+            if (selectedRestaurant && restaurantMenuMapping[selectedRestaurant]) {
+                categorySelect.innerHTML = '<option value="" disabled selected>-- Pilih Kategori --</option>';
+                const categories = Object.keys(restaurantMenuMapping[selectedRestaurant]);
+                categories.forEach(cat => {
+                    const option = document.createElement('option');
+                    option.value = cat;
+                    option.textContent = cat;
+                    categorySelect.appendChild(option);
+                });
+            } else {
+                categorySelect.innerHTML = '<option value="" disabled selected>-- Pilih Restoran Dulu --</option>';
+            }
+        }
+        function updateMenuItems() {
+            const selectedRestaurant = restaurantSelect.value;
+            const selectedCategory = categorySelect.value;
+            menuItemSelect.innerHTML = '';
+            ingredientsInput.value = '';
+            if (selectedRestaurant && selectedCategory && restaurantMenuMapping[selectedRestaurant][selectedCategory]) {
+                menuItemSelect.innerHTML = '<option value="" disabled selected>-- Pilih Item --</option>';
+                const items = restaurantMenuMapping[selectedRestaurant][selectedCategory];
+                items.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item;
+                    option.textContent = item;
+                    menuItemSelect.appendChild(option);
+                });
+            } else {
+                menuItemSelect.innerHTML = '<option value="" disabled selected>-- Pilih Kategori Dulu --</option>';
+            }
+        }
+        function autoFillIngredients() {
+            const selectedItem = menuItemSelect.value;
+            if (selectedItem && menuIngredientsMapping[selectedItem]) {
+                let ingredients = menuIngredientsMapping[selectedItem]
+                    .replace(/\[|\]|'/g, '');
+                ingredientsInput.value = ingredients;
+            } else {
+                ingredientsInput.value = '';
+            }
+        }
+        restaurantSelect.addEventListener('change', updateCategories);
+        categorySelect.addEventListener('change', updateMenuItems);
+        menuItemSelect.addEventListener('change', autoFillIngredients);
+    </script>
+</body>
+
+</html>
